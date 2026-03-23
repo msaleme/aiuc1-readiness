@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIUC-1 Readiness Assessment | Agent Security Harness</title>
+    <meta name="description" content="Pre-certification adversarial testing for AIUC-1. 209 security tests, 4 wire protocols, 20 enterprise platforms. 100% coverage on Security and Reliability principles.">
+    <meta property="og:title" content="AIUC-1 Readiness Assessment">
+    <meta property="og:description" content="Is your AI agent ready for AIUC-1 certification? 209 adversarial tests across 4 protocols. Free open-source framework + expert assessment.">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: #1a1a2e;
+            line-height: 1.6;
+            background: #fafafa;
+        }
+        .hero {
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: white;
+            padding: 80px 20px 60px;
+            text-align: center;
+        }
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 16px;
+            font-weight: 700;
+        }
+        .hero .subtitle {
+            font-size: 1.25rem;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto 32px;
+        }
+        .hero .badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 20px;
+            padding: 6px 16px;
+            font-size: 0.85rem;
+            margin: 4px;
+        }
+        .cta-btn {
+            display: inline-block;
+            background: #4f46e5;
+            color: white;
+            padding: 16px 40px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-top: 32px;
+            transition: background 0.2s;
+        }
+        .cta-btn:hover { background: #4338ca; }
+        .cta-secondary {
+            display: inline-block;
+            color: rgba(255,255,255,0.9);
+            padding: 16px 40px;
+            border: 1px solid rgba(255,255,255,0.4);
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-top: 16px;
+            margin-left: 12px;
+            transition: background 0.2s;
+        }
+        .cta-secondary:hover { background: rgba(255,255,255,0.1); }
+        .container { max-width: 900px; margin: 0 auto; padding: 60px 20px; }
+        .section-title { font-size: 1.8rem; margin-bottom: 24px; text-align: center; }
+        .coverage-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+            margin: 32px 0;
+        }
+        .coverage-card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            border-left: 4px solid #4f46e5;
+        }
+        .coverage-card.full { border-left-color: #10b981; }
+        .coverage-card.partial { border-left-color: #f59e0b; }
+        .coverage-card h3 { font-size: 1.1rem; margin-bottom: 8px; }
+        .coverage-card .pct { font-size: 2rem; font-weight: 700; color: #10b981; }
+        .coverage-card.partial .pct { color: #f59e0b; }
+        .coverage-card p { font-size: 0.9rem; color: #555; margin-top: 8px; }
+        .stats-row {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            margin: 40px 0;
+            text-align: center;
+        }
+        .stat { }
+        .stat .num { font-size: 2.5rem; font-weight: 700; color: #4f46e5; }
+        .stat .label { font-size: 0.9rem; color: #666; }
+        .proof-list {
+            list-style: none;
+            padding: 0;
+        }
+        .proof-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+        .proof-list li:last-child { border-bottom: none; }
+        .proof-list .icon { font-size: 1.2rem; flex-shrink: 0; }
+        .install-block {
+            background: #1a1a2e;
+            color: #a5f3fc;
+            border-radius: 8px;
+            padding: 20px 24px;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: 1rem;
+            text-align: center;
+            margin: 24px 0;
+        }
+        .mid-cta {
+            text-align: center;
+            padding: 60px 20px;
+            background: #f0f0ff;
+        }
+        .mid-cta h2 { font-size: 1.8rem; margin-bottom: 12px; }
+        .mid-cta p { color: #555; max-width: 600px; margin: 0 auto 24px; }
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: #888;
+            font-size: 0.85rem;
+        }
+        footer a { color: #4f46e5; text-decoration: none; }
+        @media (max-width: 600px) {
+            .hero h1 { font-size: 1.8rem; }
+            .stats-row { gap: 24px; }
+            .cta-secondary { margin-left: 0; display: block; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="hero">
+    <div>
+        <span class="badge">AIUC-1 Pre-Certification</span>
+        <span class="badge">Open Source</span>
+        <span class="badge">pip install</span>
+    </div>
+    <h1>Is Your AI Agent Ready for AIUC-1?</h1>
+    <p class="subtitle">
+        AIUC-1 requires quarterly third-party adversarial testing. We built the open-source framework that does it.
+        209 tests. 4 protocols. 20 enterprise platforms.
+    </p>
+    <div>
+        <a href="https://calendly.com/msaleme/aiuc1-readiness" class="cta-btn">Book a Readiness Assessment</a>
+        <a href="https://github.com/msaleme/red-team-blue-team-agent-fabric" class="cta-secondary">View the Framework</a>
+    </div>
+</div>
+
+<div class="container">
+    <div class="stats-row">
+        <div class="stat">
+            <div class="num">209</div>
+            <div class="label">Security Tests</div>
+        </div>
+        <div class="stat">
+            <div class="num">4</div>
+            <div class="label">Wire Protocols</div>
+        </div>
+        <div class="stat">
+            <div class="num">20</div>
+            <div class="label">Enterprise Platforms</div>
+        </div>
+        <div class="stat">
+            <div class="num">15/20</div>
+            <div class="label">AIUC-1 Requirements</div>
+        </div>
+    </div>
+
+    <h2 class="section-title">AIUC-1 Coverage</h2>
+    <p style="text-align:center; color:#555; max-width:600px; margin:0 auto 16px;">
+        UiPath certified March 9. Cisco is a technical contributor. Phil Venables (former Google Cloud CISO) calls it "a SOC 2 for AI agents." Your procurement team is going to ask about this.
+    </p>
+
+    <div class="coverage-grid">
+        <div class="coverage-card full">
+            <h3>B. Security</h3>
+            <div class="pct">100%</div>
+            <p>Adversarial robustness (B001), detect adversarial input (B002), input filtering (B005), output over-exposure (B009)</p>
+        </div>
+        <div class="coverage-card full">
+            <h3>D. Reliability</h3>
+            <div class="pct">100%</div>
+            <p>Restrict unsafe tool calls (D003), third-party testing of tool calls (D004) across MCP, A2A, L402, x402</p>
+        </div>
+        <div class="coverage-card partial">
+            <h3>C. Safety</h3>
+            <div class="pct">67%</div>
+            <p>Risk taxonomy (C001), pre-deployment testing (C002), third-party testing for harmful/out-of-scope outputs (C010, C011)</p>
+        </div>
+        <div class="coverage-card partial">
+            <h3>E. Accountability</h3>
+            <div class="pct">43%</div>
+            <p>Assign accountability (E004), vendor due diligence (E006), audit logging (E015)</p>
+        </div>
+        <div class="coverage-card partial">
+            <h3>A. Data & Privacy</h3>
+            <div class="pct">40%</div>
+            <p>Limit agent data collection (A003), protect IP & trade secrets (A004)</p>
+        </div>
+        <div class="coverage-card partial">
+            <h3>F. Society</h3>
+            <div class="pct">50%</div>
+            <p>Prevent AI cyber misuse via GTG-1002 APT simulation (F001)</p>
+        </div>
+    </div>
+</div>
+
+<div class="mid-cta">
+    <h2>Run It Yourself in 30 Seconds</h2>
+    <p>The framework is open source, pip installable, zero dependencies. Test your own agents before the auditor does.</p>
+    <div class="install-block">pip install agent-security-harness</div>
+    <p style="color:#555; font-size:0.9rem;">Then: <code>agent-security test mcp --url http://your-server/mcp --trials 10</code></p>
+</div>
+
+<div class="container">
+    <h2 class="section-title">Why Work With Us</h2>
+    <ul class="proof-list">
+        <li>
+            <span class="icon">📄</span>
+            <div><strong>Published research.</strong> 2 DOI-citable papers: <a href="https://doi.org/10.5281/zenodo.19162104">Constitutional Self-Governance</a> (77 days production, 56 agents) and <a href="https://doi.org/10.5281/zenodo.18217577">Decision Load Index</a>.</div>
+        </li>
+        <li>
+            <span class="icon">🏛️</span>
+            <div><strong>NIST alignment.</strong> 3 submissions: CAISI RFI (Mar 1), NIST-CONCEPT-1 (Mar 12), NCCoE follow-up (Mar 21). Aligned with AI RMF, AI 800-2, NCCoE Agent Identity.</div>
+        </li>
+        <li>
+            <span class="icon">✅</span>
+            <div><strong>Third-party validated.</strong> Run against a live agent system on Microsoft's AutoGen repository. 11/12 A2A, 17/18 identity, 10/10 advanced attack patterns.</div>
+        </li>
+        <li>
+            <span class="icon">🔌</span>
+            <div><strong>Protocol depth nobody else has.</strong> MCP (JSON-RPC 2.0), A2A (Agent Cards, tasks, push notifications), L402 (Lightning payments), x402 (Coinbase/Stripe). No other framework covers more than one.</div>
+        </li>
+        <li>
+            <span class="icon">🏢</span>
+            <div><strong>Enterprise ready.</strong> 20 platform adapters: SAP, Salesforce, Workday, Oracle, ServiceNow, IBM, Snowflake, Databricks, UiPath, and 11 more.</div>
+        </li>
+        <li>
+            <span class="icon">🛡️</span>
+            <div><strong>20 years enterprise integration.</strong> Oil & Gas, critical infrastructure, InfraGard Houston. We know what breaks in production because we've seen it break.</div>
+        </li>
+    </ul>
+</div>
+
+<div class="mid-cta">
+    <h2>AIUC-1 Readiness Assessment</h2>
+    <p>We run the 209-test harness against your AI agent deployment, map the results to AIUC-1 requirements, and deliver a gap analysis with remediation priorities. You get audit-ready evidence for B001, C010, and D004.</p>
+    <a href="https://calendly.com/msaleme/aiuc1-readiness" class="cta-btn">Book a 30-Minute Assessment Call</a>
+    <p style="margin-top:16px; color:#555; font-size:0.85rem;">Or email: <a href="mailto:michael@synapseops.com">michael@synapseops.com</a></p>
+</div>
+
+<footer>
+    <p>
+        <a href="https://github.com/msaleme/red-team-blue-team-agent-fabric">GitHub</a> &middot;
+        <a href="https://pypi.org/project/agent-security-harness/">PyPI</a> &middot;
+        <a href="https://doi.org/10.5281/zenodo.19162104">CSG Paper</a> &middot;
+        <a href="https://doi.org/10.5281/zenodo.18217577">DLI Paper</a> &middot;
+        <a href="https://www.aiuc-1.com">AIUC-1 Standard</a>
+    </p>
+    <p style="margin-top:8px;">AIUC-1 crosswalk mapped to v2026-Q1 (last reviewed March 2026). Coverage = breadth of requirement mapping.</p>
+</footer>
+
+</body>
+</html>
