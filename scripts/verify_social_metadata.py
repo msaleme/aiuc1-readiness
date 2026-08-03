@@ -13,6 +13,10 @@ INDEX = ROOT / "index.html"
 ASSETS = ROOT / "assets"
 PUBLIC_BASE = "https://msaleme.github.io/aiuc1-readiness/"
 IMAGE_URL = f"{PUBLIC_BASE}assets/aiuc1-evidence-share.png"
+QUICKSTART_URL = (
+    "https://github.com/msaleme/red-team-blue-team-agent-fabric/"
+    "blob/main/docs/QUICKSTART.md"
+)
 
 
 class HeadMetadata(HTMLParser):
@@ -20,6 +24,8 @@ class HeadMetadata(HTMLParser):
         super().__init__()
         self.meta: dict[str, str] = {}
         self.links: dict[str, str] = {}
+        self.anchors: list[dict[str, str]] = []
+        self._active_anchor: dict[str, str] | None = None
 
     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
         attributes = dict(attrs)
@@ -29,6 +35,22 @@ class HeadMetadata(HTMLParser):
                 self.meta[key] = attributes["content"]
         if tag == "link" and attributes.get("rel") and attributes.get("href"):
             self.links[attributes["rel"]] = attributes["href"]
+        if tag == "a":
+            self._active_anchor = {
+                "class": attributes.get("class") or "",
+                "href": attributes.get("href") or "",
+                "text": "",
+            }
+
+    def handle_data(self, data: str) -> None:
+        if self._active_anchor is not None:
+            self._active_anchor["text"] += data
+
+    def handle_endtag(self, tag: str) -> None:
+        if tag == "a" and self._active_anchor is not None:
+            self._active_anchor["text"] = self._active_anchor["text"].strip()
+            self.anchors.append(self._active_anchor)
+            self._active_anchor = None
 
 
 def png_dimensions(path: Path) -> tuple[int, int]:
@@ -36,6 +58,19 @@ def png_dimensions(path: Path) -> tuple[int, int]:
     assert data.startswith(b"\x89PNG\r\n\x1a\n"), f"{path} is not a PNG"
     width, height = struct.unpack(">II", data[16:24])
     return width, height
+
+
+def assert_primary_harness_action(anchors: list[dict[str, str]]) -> None:
+    actions = [
+        anchor
+        for anchor in anchors
+        if anchor["text"] == "Run the harness"
+        and "button" in anchor["class"].split()
+    ]
+    assert len(actions) == 1, "expected exactly one primary Run the harness action"
+    assert actions[0]["href"] == QUICKSTART_URL, (
+        "Run the harness action must point directly to Quick Start"
+    )
 
 
 def main() -> None:
@@ -77,7 +112,7 @@ def main() -> None:
 
     html = INDEX.read_text(encoding="utf-8")
     assert "https://pubpoint.com/" in html, "brand pathway must link to PubPoint"
-    assert "docs/QUICKSTART.md" in html, "primary harness action must use Quick Start"
+    assert_primary_harness_action(parser.anchors)
     assert "Not affiliated with or endorsed by AIUC-1." in html
 
     assert (ASSETS / "favicon.svg").is_file()
