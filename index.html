@@ -3,79 +3,170 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AIUC-1 Readiness Notes | Agent Security Harness</title>
-  <meta name="description" content="A public research reference for evidence-bounded AI agent security evaluation. This site does not issue AIUC-1 certification or represent third-party assessment results.">
+  <title>AIUC-1 Evidence Field Guide | Agent Security Harness</title>
+  <meta name="description" content="A research field guide for determining what AI agent-security testing evidence can and cannot support against AIUC-1. Not a certification or assessment service.">
   <link rel="canonical" href="https://msaleme.github.io/aiuc1-readiness/">
-  <meta property="og:title" content="AIUC-1 Readiness Notes | Agent Security Harness">
-  <meta property="og:description" content="Evidence-bounded research notes for AI agent security evaluation. Not a certification or assessment service.">
+  <meta property="og:title" content="AIUC-1 Evidence Field Guide | Agent Security Harness">
+  <meta property="og:description" content="Use a pinned test method and retained artifacts to build evidence for independent review. Not a certification or assessment service.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://msaleme.github.io/aiuc1-readiness/">
   <meta name="twitter:card" content="summary">
   <style>
-    :root { color-scheme: light; --ink:#192235; --muted:#526176; --paper:#f8fafc; --panel:#fff; --line:#d9e2ef; --accent:#334db5; }
-    * { box-sizing:border-box; }
-    body { margin:0; background:var(--paper); color:var(--ink); font:16px/1.6 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
-    header { background:#10213f; color:#fff; padding:72px 20px 64px; }
-    main, .header-inner { max-width:880px; margin:auto; }
-    .eyebrow { color:#b9ccff; font-size:.85rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; }
-    h1 { font-size:clamp(2rem,6vw,3.5rem); line-height:1.1; max-width:750px; margin:12px 0 18px; }
-    h2 { font-size:1.55rem; line-height:1.25; margin:0 0 14px; }
-    .lede { font-size:1.2rem; max-width:720px; color:#e5edff; }
-    main { padding:42px 20px 64px; }
-    section { margin:0 0 28px; padding:28px; background:var(--panel); border:1px solid var(--line); border-radius:12px; }
-    p { margin:0 0 14px; }
-    p:last-child { margin-bottom:0; }
-    ul { margin:0; padding-left:1.25rem; }
-    li + li { margin-top:8px; }
-    a { color:var(--accent); font-weight:650; }
-    .actions { display:flex; gap:12px; flex-wrap:wrap; margin-top:26px; }
-    .button { display:inline-block; padding:11px 17px; border-radius:7px; background:#fff; color:#10213f; text-decoration:none; font-weight:750; }
-    .button.secondary { color:#fff; background:transparent; border:1px solid #b9ccff; }
-    .note { border-left:4px solid var(--accent); padding-left:16px; color:var(--muted); }
-    footer { max-width:880px; margin:0 auto; padding:0 20px 42px; color:var(--muted); font-size:.9rem; }
+    :root {
+      color-scheme: light;
+      --navy: #071b36;
+      --navy-2: #0d2b52;
+      --ink: #12233a;
+      --muted: #52647a;
+      --paper: #f3f7fa;
+      --panel: #ffffff;
+      --line: #cfdae5;
+      --cyan: #00b8d9;
+      --cyan-pale: #e8f9fc;
+      --green: #087b64;
+      --amber: #9a5c00;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--paper); color: var(--ink); font: 17px/1.6 Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    a { color: #075f86; font-weight: 700; }
+    a:hover { color: #003c59; }
+    .wrap { max-width: 1120px; margin: auto; padding: 0 24px; }
+    header { color: white; background: radial-gradient(circle at 82% 15%, #164d75 0, var(--navy) 44%, #041225 100%); padding: 78px 0 72px; }
+    .eyebrow { color: #8be7f4; font-size: .82rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+    h1 { max-width: 850px; margin: 14px 0 20px; font-size: clamp(2.45rem, 6vw, 4.6rem); letter-spacing: -.045em; line-height: 1.04; }
+    h2 { margin: 0 0 14px; font-size: clamp(1.55rem, 3vw, 2.2rem); letter-spacing: -.025em; line-height: 1.16; }
+    h3 { margin: 0 0 6px; font-size: 1.05rem; }
+    .lede { max-width: 760px; margin: 0; color: #d7e9f6; font-size: 1.22rem; }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+    .button { display: inline-block; padding: 12px 17px; border: 1px solid transparent; border-radius: 7px; background: white; color: var(--navy); font-weight: 800; text-decoration: none; }
+    .button.secondary { border-color: #83c9dd; background: transparent; color: white; }
+    .currency { display: inline-flex; flex-wrap: wrap; gap: 7px; margin-top: 34px; padding: 10px 13px; border: 1px solid #3f6788; border-radius: 7px; color: #d7e9f6; font-size: .9rem; }
+    .currency strong { color: #8be7f4; }
+    main { padding: 50px 0 68px; }
+    section { margin-bottom: 28px; }
+    .panel { padding: 30px; border: 1px solid var(--line); border-radius: 12px; background: var(--panel); }
+    .intro { max-width: 780px; font-size: 1.06rem; }
+    .facts { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; margin-top: 20px; overflow: hidden; border: 1px solid var(--line); border-radius: 12px; background: var(--line); }
+    .fact { min-height: 150px; padding: 23px; background: var(--panel); }
+    .fact strong { display: block; color: var(--navy); font-size: 2rem; line-height: 1; }
+    .fact span { display: block; margin-top: 10px; color: var(--muted); font-size: .93rem; line-height: 1.35; }
+    .kicker { margin: 0 0 6px; color: var(--cyan); font-size: .78rem; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; }
+    .state-grid, .artifact-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .state, .artifact { padding: 23px; border: 1px solid var(--line); border-radius: 10px; background: var(--panel); }
+    .chip { display: inline-block; margin-bottom: 14px; padding: 4px 8px; border-radius: 999px; background: var(--cyan-pale); color: #00647d; font-size: .72rem; font-weight: 900; letter-spacing: .09em; }
+    .chip.executed { background: #e9f7f3; color: var(--green); }
+    .chip.reviewed { background: #fff4df; color: var(--amber); }
+    .state p, .artifact p { margin: 0; color: var(--muted); font-size: .95rem; }
+    .workflow { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0; margin-top: 20px; }
+    .step { position: relative; padding: 18px 16px 18px 0; min-height: 160px; }
+    .step:not(:last-child)::after { position: absolute; top: 36px; right: 0; width: calc(100% - 44px); height: 1px; background: var(--cyan); content: ""; transform: translateX(100%); }
+    .number { display: grid; width: 38px; height: 38px; place-items: center; margin-bottom: 15px; border-radius: 50%; background: var(--navy); color: white; font-size: .84rem; font-weight: 900; }
+    .step p { margin: 0; color: var(--muted); font-size: .9rem; line-height: 1.4; }
+    .ladder { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-top: 20px; }
+    .level { min-height: 150px; padding: 18px; border-radius: 9px; color: white; background: #16375d; }
+    .level:nth-child(2) { background: #165274; }
+    .level:nth-child(3) { background: #166e83; }
+    .level:nth-child(4) { background: #137a75; }
+    .level:nth-child(5) { background: #0c695e; }
+    .level strong { display: block; color: #a8f0f8; font-size: .8rem; letter-spacing: .08em; }
+    .level span { display: block; margin-top: 12px; font-size: .92rem; font-weight: 700; line-height: 1.25; }
+    .boundary { border-left: 5px solid var(--cyan); padding: 3px 0 3px 18px; color: var(--muted); }
+    footer { padding: 0 0 42px; color: var(--muted); font-size: .9rem; }
+    @media (max-width: 800px) {
+      .facts, .state-grid, .artifact-grid { grid-template-columns: 1fr 1fr; }
+      .workflow { grid-template-columns: 1fr; }
+      .step { min-height: 0; padding: 12px 0 12px 55px; }
+      .number { position: absolute; left: 0; top: 12px; }
+      .step:not(:last-child)::after { top: 50px; left: 18px; width: 1px; height: calc(100% - 24px); transform: none; }
+      .ladder { grid-template-columns: 1fr; }
+      .level { min-height: 0; }
+    }
+    @media (max-width: 520px) { .facts, .state-grid, .artifact-grid { grid-template-columns: 1fr; } .wrap { padding: 0 18px; } .panel { padding: 23px; } }
   </style>
 </head>
 <body>
   <header>
-    <div class="header-inner">
-      <div class="eyebrow">Public research reference</div>
-      <h1>Evidence-bounded AI agent security evaluation</h1>
-      <p class="lede">This page points to open research and tooling relevant to AIUC-1 readiness. It is not a certification, a compliance determination, or an assessment of any third-party deployment.</p>
+    <div class="wrap">
+      <div class="eyebrow">Enterprise Agent Architecture · Evidence Field Note</div>
+      <h1>AIUC-1 readiness starts with evidence, not a coverage claim.</h1>
+      <p class="lede">Use the Agent Security Harness to identify relevant tests, run them from a pinned revision, and retain reproducible artifacts for independent review. This reference does not certify a system or determine compliance.</p>
       <div class="actions">
-        <a class="button" href="https://github.com/msaleme/red-team-blue-team-agent-fabric">View the Agent Security Harness</a>
-        <a class="button secondary" href="https://www.aiuc-1.com/">View the AIUC-1 standard</a>
+        <a class="button" href="https://github.com/msaleme/red-team-blue-team-agent-fabric/blob/main/docs/AIUC1-CROSSWALK.md">Explore the AIUC-1 crosswalk</a>
+        <a class="button secondary" href="https://github.com/msaleme/red-team-blue-team-agent-fabric#quick-start">Run the harness</a>
+        <a class="button secondary" href="https://www.aiuc-1.com/">Read the AIUC-1 standard</a>
       </div>
+      <div class="currency"><strong>Mapping basis</strong> AIUC-1 2026-Q1/Q2 · Q3-2026 delta reviewed July 16, 2026 · two code-generation-scoped requirements pending disposition</div>
     </div>
   </header>
-  <main>
-    <section>
-      <h2>How to use this reference</h2>
-      <p>Start with the harness repository, its pinned releases, and the documented test catalog. Reproduce a result from the specified revision before relying on it. The repository, rather than this page, is the source of truth for current code and coverage.</p>
-      <p class="note">A mapping between a test and a standard requirement is not certification. It describes a bounded relationship that should be independently reviewed for the target system and the relevant version of the standard.</p>
+  <main class="wrap">
+    <section class="panel intro">
+      <h2>What this reference is for</h2>
+      <p>Use this guide to distinguish a documented requirement relationship from a recorded test run and from independent review. Those are different states of evidence. Treating them as interchangeable is how a useful crosswalk turns into an unsupported readiness claim.</p>
     </section>
+
     <section>
-      <h2>Evidence classes</h2>
-      <p>The harness distinguishes evidence rather than treating every test result as the same kind of proof:</p>
-      <ul>
-        <li><strong>E1 - observational:</strong> source or configuration inspection.</li>
-        <li><strong>E2 - runtime characterization:</strong> a bounded observed behavior in a stated environment.</li>
-        <li><strong>E3 - enforcement:</strong> a demonstrated control at the relevant boundary.</li>
-        <li><strong>E4 - persistence and replay:</strong> an independently repeatable, recorded result.</li>
-        <li><strong>E5 - isolation:</strong> evidence that a control remained effective under the stated isolation conditions.</li>
-      </ul>
+      <p class="kicker">Repository snapshot</p>
+      <div class="facts">
+        <div class="fact"><strong>603</strong><span>unique test IDs reported by the repository count script</span></div>
+        <div class="fact"><strong>4</strong><span>wire protocols represented: MCP, A2A, L402, and x402</span></div>
+        <div class="fact"><strong>19 / 20</strong><span>testable 2026-Q1/Q2 requirements with a documented mapping</span></div>
+        <div class="fact"><strong>Q3</strong><span>currency delta reviewed July 16, 2026, with code-generation scope still pending</span></div>
+      </div>
     </section>
-    <section>
-      <h2>Scope and limitations</h2>
-      <p>Open-source test tooling can support a readiness review, but it cannot establish that a system is secure, certified, or compliant. Results depend on the target, configuration, test version, authorization, and evidence record. Do not generalize a local or synthetic result to a vendor, customer, or production environment without appropriate authorization and independent validation.</p>
+
+    <section class="panel">
+      <p class="kicker">Claims model</p>
+      <h2>Three states that should not be collapsed</h2>
+      <div class="state-grid">
+        <article class="state"><span class="chip">Mapped</span><h3>Documented relationship</h3><p>A harness test is connected to a requirement in the crosswalk. This is a research mapping, not a result for any target.</p></article>
+        <article class="state"><span class="chip executed">Executed</span><h3>Recorded observation</h3><p>A stated target and pinned revision were run with retained inputs, environment details, timestamps, and output.</p></article>
+        <article class="state"><span class="chip reviewed">Independently reviewed</span><h3>External judgment</h3><p>A qualified party assessed the retained evidence and its applicability to the target and relevant standard version.</p></article>
+      </div>
     </section>
+
+    <section class="panel">
+      <p class="kicker">Practical workflow</p>
+      <h2>From a requirement to reviewable evidence</h2>
+      <div class="workflow">
+        <article class="step"><span class="number">01</span><h3>Select</h3><p>Identify the requirement and the applicable AIUC-1 version.</p></article>
+        <article class="step"><span class="number">02</span><h3>Choose</h3><p>Select mapped tests and define the authorized target and scope.</p></article>
+        <article class="step"><span class="number">03</span><h3>Pin</h3><p>Record the harness revision, dependencies, and invocation.</p></article>
+        <article class="step"><span class="number">04</span><h3>Retain</h3><p>Keep inputs, outputs, environment details, and null or negative results.</p></article>
+        <article class="step"><span class="number">05</span><h3>Review</h3><p>Seek independent assessment before making a third-party or conformity claim.</p></article>
+      </div>
+    </section>
+
+    <section class="panel">
+      <p class="kicker">Evidence taxonomy</p>
+      <h2>Match the language to the retained evidence</h2>
+      <div class="ladder">
+        <div class="level"><strong>E1</strong><span>Observation</span></div>
+        <div class="level"><strong>E2</strong><span>Runtime characterization</span></div>
+        <div class="level"><strong>E3</strong><span>Enforcement</span></div>
+        <div class="level"><strong>E4</strong><span>Persistence and replay resistance</span></div>
+        <div class="level"><strong>E5</strong><span>Isolation and security boundary</span></div>
+      </div>
+      <p class="boundary">A lower evidence class does not support language reserved for a higher one. A mapping alone is E1-level material, not evidence that a test passed or a control enforced a policy.</p>
+    </section>
+
     <section>
-      <h2>Source material</h2>
-      <ul>
-        <li><a href="https://github.com/msaleme/red-team-blue-team-agent-fabric">Agent Security Harness repository</a></li>
-        <li><a href="https://www.aiuc-1.com/">AIUC-1 standard</a></li>
-      </ul>
+      <p class="kicker">Primary artifacts</p>
+      <div class="artifact-grid">
+        <article class="artifact"><h3><a href="https://github.com/msaleme/red-team-blue-team-agent-fabric/blob/main/docs/AIUC1-CROSSWALK.md">AIUC-1 crosswalk</a></h3><p>Requirement-to-test relationships and current claim boundaries.</p></article>
+        <article class="artifact"><h3><a href="https://github.com/msaleme/red-team-blue-team-agent-fabric/blob/main/docs/TEST-INVENTORY.md">Test inventory</a></h3><p>Module-by-module inventory and the reproducible count command.</p></article>
+        <article class="artifact"><h3><a href="https://github.com/msaleme/red-team-blue-team-agent-fabric/blob/main/docs/QUICKSTART.md">Quick start</a></h3><p>Installation and bounded execution guidance.</p></article>
+        <article class="artifact"><h3><a href="https://github.com/msaleme/red-team-blue-team-agent-fabric/blob/main/docs/EVIDENCE-CLASS-TAXONOMY.md">Evidence-class taxonomy</a></h3><p>Permitted language and the evidence each claim class requires.</p></article>
+        <article class="artifact"><h3><a href="https://github.com/msaleme/red-team-blue-team-agent-fabric/releases">Release history</a></h3><p>Versioned releases for pinning and reproducibility.</p></article>
+        <article class="artifact"><h3><a href="https://github.com/msaleme/red-team-blue-team-agent-fabric/blob/main/docs/AIUC1-CROSSWALK.md#q3-2026-currency-note">Q3 currency note</a></h3><p>Known changes, pending scope decisions, and citation limits.</p></article>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Boundary</h2>
+      <p>This is a noncommercial research reference. The harness and crosswalk can support evidence collection relevant to a readiness review. They do not certify a system, determine compliance, or substitute for independent assessment of the specific target and standard version.</p>
     </section>
   </main>
-  <footer>Last refreshed August 3, 2026. This is a research navigation page, not a consulting or certification offer.</footer>
+  <footer class="wrap">Research maintained by <a href="https://github.com/msaleme">Michael K. Saleme</a> · Last refreshed August 3, 2026</footer>
 </body>
 </html>
