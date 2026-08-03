@@ -1,0 +1,11 @@
+{
+  "name": "AIUC-1 Evidence Field Guide",
+  "short_name": "AIUC-1 Evidence",
+  "icons": [
+    { "src": "assets/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "assets/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ],
+  "theme_color": "#071b36",
+  "background_color": "#071b36",
+  "display": "browser"
+}
