@@ -75,6 +75,11 @@ def main() -> None:
     assert parser.meta["og:image:height"] == "630"
     assert parser.meta["twitter:card"] == "summary_large_image"
 
+    html = INDEX.read_text(encoding="utf-8")
+    assert "https://pubpoint.com/" in html, "brand pathway must link to PubPoint"
+    assert "docs/QUICKSTART.md" in html, "primary harness action must use Quick Start"
+    assert "Not affiliated with or endorsed by AIUC-1." in html
+
     assert (ASSETS / "favicon.svg").is_file()
     for name, size in (("icon-180.png", (180, 180)), ("icon-192.png", (192, 192)),
                        ("icon-512.png", (512, 512)), ("aiuc1-evidence-share.png", (1200, 630))):
