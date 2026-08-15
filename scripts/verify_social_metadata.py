@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import struct
 from html.parser import HTMLParser
+import re
 from pathlib import Path
 
 
@@ -73,6 +74,34 @@ def assert_primary_harness_action(anchors: list[dict[str, str]]) -> None:
     )
 
 
+def assert_counts_name_their_artifact(html: str) -> None:
+    """A test-count claim must say which artifact it counted.
+
+    The page published "603 unique test IDs" under the heading "Repository
+    snapshot" while the repository's main branch was at 606. The number was not
+    wrong -- it was the v4.15.0 release figure -- but nothing on the page said
+    so, and a count that does not name its artifact silently becomes false the
+    next time the artifact moves.
+
+    Correcting the number would only reset the clock. This asserts the property
+    instead: any numeric test-ID claim must carry a version or an explicit
+    release/main qualifier in the same fact block.
+    """
+    claims = re.findall(
+        r"<strong>\s*(\d[\d,]*)\s*</strong>\s*<span>(.*?)</span>",
+        html, flags=re.S | re.I)
+    unqualified = []
+    for value, text in claims:
+        if not re.search(r"test\s*ID", text, re.I):
+            continue
+        if not re.search(r"v\d+\.\d+|release|\bmain\b|commit", text, re.I):
+            unqualified.append(value)
+    assert not unqualified, (
+        "test-ID counts that do not name the artifact they counted: "
+        f"{unqualified}. Say which release or revision produced the number."
+    )
+
+
 def main() -> None:
     parser = HeadMetadata()
     parser.feed(INDEX.read_text(encoding="utf-8"))
@@ -114,6 +143,7 @@ def main() -> None:
     assert "https://pubpoint.com/" in html, "brand pathway must link to PubPoint"
     assert_primary_harness_action(parser.anchors)
     assert "Not affiliated with or endorsed by AIUC-1." in html
+    assert_counts_name_their_artifact(html)
 
     assert (ASSETS / "favicon.svg").is_file()
     for name, size in (("icon-180.png", (180, 180)), ("icon-192.png", (192, 192)),
